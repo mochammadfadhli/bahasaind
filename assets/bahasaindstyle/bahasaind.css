@@ -1,0 +1,25 @@
+.navbar {
+	background: rgb(75, 75, 75);
+}
+
+.navbar-brand {
+	font-family: 'Damion', cursive;
+	font-weight: bold;
+}
+
+.pencarian input {
+	border-radius: 50px;
+	margin-left: 300px;
+	align-content: center;
+}
+
+.pencarian span {
+	border-radius: 50px;
+}
+
+.col-2 {
+	background: rgb(75, 75, 75);
+	height: 500px;
+}
+
+@media (min-width: 576px) {}
