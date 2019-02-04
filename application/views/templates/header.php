@@ -8,7 +8,8 @@
 
     <!-- Font -->
     <link href="<?=base_url()?>assets/font/Damion-Regular.ttf" rel="stylesheet">
-
+    <link href="<?=base_url()?>assets/font/Viga-Regular.ttf" rel="stylesheet">
+    
 
     <!-- Bootstrap CSS -->
     <link href="<?=base_url()?>assets/bootstrap-v4.1.3/css/bootstrap.min.css" rel="stylesheet">

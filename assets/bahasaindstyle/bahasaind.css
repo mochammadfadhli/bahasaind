@@ -1,25 +1,44 @@
+/* Navbar */
 .navbar {
-	background: rgb(75, 75, 75);
+	background: #bbbaba;
 }
 
 .navbar-brand {
-	font-family: 'Damion', cursive;
+	margin-left: 55px;
 	font-weight: bold;
+	font-size: 30px;
 }
 
-.pencarian input {
-	border-radius: 50px;
-	margin-left: 300px;
-	align-content: center;
+.icon-navbar {
+	height: 30px;
+	margin-top: 7px;
+	margin-right: 60px;
 }
 
-.pencarian span {
-	border-radius: 50px;
-}
-
+/* Bagian tengah */
 .col-2 {
-	background: rgb(75, 75, 75);
-	height: 500px;
+	background: #5D5B5B;
+	height: 100%;
 }
+
+.nav-link {
+	margin-left: 10px;
+}
+
+
+/* Footer */
+.footer {
+	background-color: #5D5B5B;
+}
+
+.footer h6 {
+	color: white;
+	margin-top: 5px;
+	margin-bottom: 10px;
+	margin-right: 25px;
+}
+
+
+
 
 @media (min-width: 576px) {}

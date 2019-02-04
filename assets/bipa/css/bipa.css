@@ -1,0 +1,164 @@
+/*Navbar*/
+.navbar-brand {
+	font-family: viga;
+	font-size: 30px;
+}
+
+.nav-link-header {
+	font-size: 15px;
+}
+
+/* jumbotron */
+.jumbotron {
+	background-color: #707070;
+	height: 575px;
+	text-align: right;
+}
+
+.jumbotron .display-4 {
+	color: rgb(0, 0, 0);
+	margin-top: 150px;
+
+}
+
+/* Your benefit */
+.yourbenefit {
+	height: 640px;
+}
+
+.yourbenefit h3 {
+	font-weight: bold;
+}
+
+.yourbenefit figure img {
+	width: 150px;
+	margin-top: 100px;
+}
+
+.yourbenefit figure h5 {
+	margin-top: 20px;
+	width: 150px;
+	font-size: 18px;
+}
+
+.yourbenefit a {
+	margin-top: 30px;
+}
+
+/* our program */
+.ourprograms {
+	height: 650px;
+	background-color: #707070;
+}
+
+.ourprograms h3 {
+	margin-bottom: 30px;
+	font-weight: bold;
+}
+
+.ourprograms figure h4 {
+	text-align: center;
+}
+
+.ourprograms figure img {
+	width: 240px;
+}
+
+.ourprograms figure h5 {
+	color: black;
+	width: 240px;
+	font-size: 15px;
+}
+
+/* our tutors */
+.ourtutors {
+	height: 600px;
+}
+
+.ourtutors h3 {
+	margin-bottom: 50px;
+}
+
+.ourtutors .card {
+	margin-left: auto;
+}
+
+.ourtutors figure img {
+	width: 150px;
+	margin-top: 15px;
+	margin-left: 50px;
+}
+
+.ourtutors h5 {
+	text-align: center;
+	margin-top: -35px;
+	margin-bottom: -5px;
+}
+
+.ourtutors a {
+	border-radius: 10px;
+	font-size: 12px;
+	margin-top: -10px;
+}
+
+.ourtutors button {
+	margin-top: 120px;
+}
+
+
+/* footer */
+.footer {
+	background-color: black;
+	color: white;
+	height: 200px;
+}
+
+.footer h4 {
+	font-size: 20px;
+	font-weight: bold;
+}
+
+.footer h3 {
+	font-size: 13px;
+	margin-top: -2px;
+}
+
+
+/* Utility */
+.tombol {
+	border-radius: 40px;
+}
+
+
+/* Cosine Style */
+.tab-content {
+	text-align: center;
+}
+
+.gambar-materi {
+	height: 300px;
+}
+
+/* Desktop Version */
+@media (min-width: 992px) {
+	.nav-link-header {
+		text-transform: uppercase;
+		margin-right: 15px;
+	}
+
+	.nav-link-header:hover::after {
+		content: '';
+		display: block;
+		border-bottom: 3px solid #707070;
+		width: 50%;
+		margin: auto;
+		margin-bottom: -8px;
+	}
+
+
+
+
+
+
+
+}
