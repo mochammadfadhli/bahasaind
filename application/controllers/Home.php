@@ -28,49 +28,53 @@ class Home extends CI_Controller {
 		$doc = explode(" ",$doc);
 		$doc = array_count_values($doc);
 
-		// get kunci jawaban dari db
+		$term = array();
+		
+		// listing lagi term2 di jawaban. jika belum ada di $term, masuk. jika sudah ada, nggk usah masuk
+		foreach ($doc as $key => $value) {
+			if (!array_key_exists($key, $term)) {
+				$term[$key] = "";
+			}
+		}
+		
+		// get kunci jawaban dari db sekalian listing term2 yang terkandung
 		$kunci_jawaban_dari_db = $this->db->get("unit_".$this->input->post("nomor_unit"))->result();
 		foreach ($kunci_jawaban_dari_db as $key => $value) {
 			$kunci_jawaban_untuk_dikoreksi[$value->Term] = intval($value->Jumlah);
+			if (!array_key_exists($value->Term, $term)) {
+				$term[$value->Term] = "";
+			}
 		}
 
-		// lakukan pengoreksian dengan array yang terpanjang sebagai acuannya
-		if (sizeof($doc) > sizeof($kunci_jawaban_untuk_dikoreksi)) {
-			$string_acuan = "DOC";
-			$acuan 	= $doc;
-			$target = $kunci_jawaban_untuk_dikoreksi;
-		}else{
-			$string_acuan = "Q";
-			$acuan 	= $kunci_jawaban_untuk_dikoreksi;
-			$target = $doc;
-		}
 
 		// hitung TF (Q dan Doc) beserta DF nya
 		$term_frequency = array("q"=>array(),"doc"=>array());
 		$document_frequnecy = array();
 		$key_not_exist = array("key_not_exist"=>array());
-		foreach ($acuan as $key => $value) {
+		foreach ($term as $key => $value) {
 			
-			// jika key acuan ada didalam key target
-			if (array_key_exists($key, $target)) {
-				if ($string_acuan == "Q") {
-					array_push($term_frequency["q"], $acuan[$key]);
-					array_push($term_frequency["doc"], $target[$key]);
-				}else{
-					array_push($term_frequency["q"], $target[$key]);
-					array_push($term_frequency["doc"], $acuan[$key]);
-				}
+			// jika key term ada didalam $kunci_jawban
+			if (array_key_exists($key, $kunci_jawaban_untuk_dikoreksi)) {
+				$status_q = 1;
+				array_push($term_frequency["q"], $kunci_jawaban_untuk_dikoreksi[$key]);
+			}else{
+				$status_q = 0;
+				array_push($term_frequency["q"], 0);
+			}
+
+
+			if (array_key_exists($key, $doc)) {
+				$status_doc = 1;
+				array_push($term_frequency["doc"], $doc[$key]);
+			}else{
+				$status_doc = 0;
+				array_push($term_frequency["doc"], 0);
+			}
+
+			if ($status_q && $status_doc) {
 				array_push($document_frequnecy, 2);
 			}else{
-				if ($string_acuan == "Q") {
-					array_push($term_frequency["q"], $acuan[$key]);
-					array_push($term_frequency["doc"], 0);
-				}else{
-					array_push($term_frequency["q"], $target[$key]);
-					array_push($term_frequency["doc"], 0);
-				}
 				array_push($document_frequnecy, 1);
-				array_push($key_not_exist['key_not_exist'], $key);
 			}
 		}
 
@@ -115,9 +119,7 @@ class Home extends CI_Controller {
 		$hasil_cosine = array($temp,$jumlah_hasil_perkalian_skalar_dokumen_dgn_kunci_jawaban/$temp);
 
 		$return = array(
-			// $doc,
-			// $kunci_jawaban_untuk_dikoreksi,
-			"acuan" => $acuan,
+			"term" => $term,
 			"tf" => $term_frequency,
 			"df" => $document_frequnecy,
 			"idf_log" => $idf_log,
@@ -128,8 +130,6 @@ class Home extends CI_Controller {
 			"sqrt vektor doc" => $sqrt_jumlah_panjang_vektor_doc,
 			"sqrt vektor q" => $sqrt_jumlah_panjang_vektor_q,
 			"hasil cosine" => $hasil_cosine
-			// "doc"	=>	sizeof($doc),
-			// "kunci"	=>	sizeof($kunci_jawaban_untuk_dikoreksi)
 		);
 		echo json_encode($return,JSON_PRETTY_PRINT);
 	}
