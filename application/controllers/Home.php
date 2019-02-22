@@ -21,7 +21,7 @@ class Home extends CI_Controller {
 	{
 		// get the form input value
 		$doc = strtolower($this->input->post('teks_jawaban'));
-		$doc = str_replace(array("\r", "\n", "  "), ' ', $doc);
+		$doc = str_replace(array("\r", "\n", " ","  "), ' ', $doc);
 		$doc = str_replace(str_split('~`!@#$%^&()-+[\/:*?<>|]~._='),"", $doc);
 		$doc = str_replace('"', "", $doc);
 		$doc = str_replace("'", "", $doc);
@@ -123,14 +123,17 @@ class Home extends CI_Controller {
 			"tf" => $term_frequency,
 			"df" => $document_frequnecy,
 			"idf_log" => $idf_log,
-			"tf-idf" => $tf_idf,
-			"hasil perkalian skalar" => $hasil_perkalian_skalar_dokumen_dgn_kunci_jawaban,
-			"jumlah hasil perkalian skalar" => $jumlah_hasil_perkalian_skalar_dokumen_dgn_kunci_jawaban,
-			"panjang vektor" => $panjang_vektor,
-			"sqrt vektor doc" => $sqrt_jumlah_panjang_vektor_doc,
-			"sqrt vektor q" => $sqrt_jumlah_panjang_vektor_q,
-			"hasil cosine" => $hasil_cosine
+			"tf_idf" => $tf_idf,
+			"hasil_perkalian_skalar" => $hasil_perkalian_skalar_dokumen_dgn_kunci_jawaban,
+			"jumlah_hasil_perkalian_skalar" => $jumlah_hasil_perkalian_skalar_dokumen_dgn_kunci_jawaban,
+			"panjang_vektor" => $panjang_vektor,
+			"sqrt_vektor_doc" => $sqrt_jumlah_panjang_vektor_doc,
+			"sqrt_vektor_q" => $sqrt_jumlah_panjang_vektor_q,
+			"jumlah_panjang_vektor_q" => $jumlah_panjang_vektor_q,
+			"jumlah_panjang_vektor_doc" => $jumlah_panjang_vektor_doc,
+			"hasil_cosine" => $hasil_cosine
 		);
+		
 		echo json_encode($return,JSON_PRETTY_PRINT);
 	}
 
