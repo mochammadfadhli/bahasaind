@@ -19,10 +19,11 @@ class Home extends CI_Controller {
 
 	public function algoritma()
 	{
+		
 		// get the form input value
 		$doc = strtolower($this->input->post('teks_jawaban'));
 		$doc = str_replace(array("\r", "\n", " ","  "), ' ', $doc);
-		$doc = str_replace(str_split('~`!@#$%^&()-+[\/:*?<>|]~._='),"", $doc);
+		$doc = str_replace(str_split('~`!@#$%^&()-+[\/:*?<>|]~.,_='),"", $doc);
 		$doc = str_replace('"', "", $doc);
 		$doc = str_replace("'", "", $doc);
 		$doc = explode(" ",$doc);
@@ -57,6 +58,8 @@ class Home extends CI_Controller {
 			if (array_key_exists($key, $kunci_jawaban_untuk_dikoreksi)) {
 				$status_q = 1;
 				array_push($term_frequency["q"], $kunci_jawaban_untuk_dikoreksi[$key]);
+				// $term_frequency["q"][$key] = $kunci_jawaban_untuk_dikoreksi[$key];
+				
 			}else{
 				$status_q = 0;
 				array_push($term_frequency["q"], 0);
@@ -120,6 +123,7 @@ class Home extends CI_Controller {
 
 		$return = array(
 			"term" => $term,
+			"doc" => $doc,
 			"tf" => $term_frequency,
 			"df" => $document_frequnecy,
 			"idf_log" => $idf_log,
