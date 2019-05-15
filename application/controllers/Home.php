@@ -22,6 +22,7 @@ class Home extends CI_Controller {
 		
 		// get the form input value
 		$doc = strtolower($this->input->post('teks_jawaban'));
+		// $doc = strtolower("Nama saya dunia saya bisa datang usia saya 7 tahun saya kelas 1 Sekolah Dasar saya tinggal di Jalan Pemuda Nomor 1");
 		$doc = str_replace(array("\r", "\n", " ","  "), ' ', $doc);
 		$doc = str_replace(str_split('~`!@#$%^&()-+[\/:*?<>|]~.,_='),"", $doc);
 		$doc = str_replace('"', "", $doc);
@@ -40,6 +41,7 @@ class Home extends CI_Controller {
 		
 		// get kunci jawaban dari db sekalian listing term2 yang terkandung
 		$kunci_jawaban_dari_db = $this->db->get("unit_".$this->input->post("nomor_unit"))->result();
+		// $kunci_jawaban_dari_db = $this->db->get("unit_1")->result();
 		foreach ($kunci_jawaban_dari_db as $key => $value) {
 			$kunci_jawaban_untuk_dikoreksi[$value->Term] = intval($value->Jumlah);
 			if (!array_key_exists($value->Term, $term)) {
@@ -137,8 +139,54 @@ class Home extends CI_Controller {
 			"jumlah_panjang_vektor_doc" => $jumlah_panjang_vektor_doc,
 			"hasil_cosine" => $hasil_cosine
 		);
-		
-		echo json_encode($return,JSON_PRETTY_PRINT);
+		$tableElementWillBeRendered = "
+			<h6>Jumlah hasil perkalian skalar = ".$return['jumlah_hasil_perkalian_skalar']."</h6>".
+            "<h6>Jumlah panjang vektor q = ".$return['jumlah_panjang_vektor_q']."</h6>".
+            "<h6>Jumlah panjang vektor doc = ".$return['jumlah_panjang_vektor_doc']."</h6>".
+            "<h6>SQRT Jumlah panjang vektor q = ".$return['sqrt_vektor_q']."</h6>".
+            "<h6>SQRT Jumlah panjang vektor doc = ".$return['sqrt_vektor_doc']."</h6>".
+            "<h6>Hasil Cosine = ".$return['hasil_cosine'][0]." || ".$return['hasil_cosine'][1]." </h6>".
+            "<table id='tabel-hasil-unit-".$this->input->post("nomor_unit")."' class='display table-bordered' style='width:100%'>".
+            "<thead>".
+            "<tr>".
+            "<th>Index</th>".
+            "<th>Term</th>".
+            "<th>TF Q</th>".
+            "<th>TF DOC</th>".
+            "<th>DF</th>".
+            "<th>IDF</th>".
+            "<th>TF-IDF Q</th>".
+            "<th>TF-IDF DOC</th>".
+            "<th>Hasil perkalian skalar</th>".
+            "<th>Panjang vektor Q</th>".
+            "<th>Panjang vektor DOC</th>".
+            "</tr>".
+            "</thead>".
+            "<tbody>";
+
+        $i = 0;
+		foreach ($return["term"] as $key => $value) {
+			$tableElementWillBeRendered .= 
+			"<tr>".
+            "<td>".($i+1)."</td>".
+            "<td>".$key."</td>".
+            "<td>".$return["tf"]["q"][$i]."</td>".
+            "<td>".$return["tf"]["doc"][$i]."</td>".
+            "<td>".$return["df"][$i]."</td>".
+            "<td>".$return["idf_log"][$i]."</td>".
+            "<td>".$return["tf_idf"]["q"][$i]."</td>".
+            "<td>".$return["tf_idf"]["doc"][$i]."</td>".
+            "<td>".$return["hasil_perkalian_skalar"][$i]."</td>".
+            "<td>".$return["panjang_vektor"]["q"][$i]."</td>".
+            "<td>".$return["panjang_vektor"]["doc"][$i]."</td></tr>";
+            $i++;
+		}
+            // echo "<pre>";
+            // var_dump($return["panjang_vektor"]["doc"][$i]);
+
+		$tableElementWillBeRendered .= "</tbody></table>";
+		// echo "<pre>";
+		echo json_encode($tableElementWillBeRendered,JSON_PRETTY_PRINT);
 	}
 
 }

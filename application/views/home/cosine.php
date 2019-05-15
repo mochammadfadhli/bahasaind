@@ -294,54 +294,7 @@
             function kirimJawaban(nomor_unit) {
                 $.post( "<?=base_url()?>Home/algoritma",  { teks_jawaban: $("#input-teks-unit-"+nomor_unit).val() ,nomor_unit: nomor_unit})
                 .done(function( data ) {
-                    data = JSON.parse(data)
-                    console.log(data)
-                    // data.term = JSON.stringify(data.term)
-                    var elementToRender = "";
-                    elementToRender +=
-                    "<h6>Jumlah hasil perkalian skalar = "+data.jumlah_hasil_perkalian_skalar+"</h6>"+
-                    "<h6>Jumlah panjang vektor q = "+data.jumlah_panjang_vektor_q+"</h6>"+
-                    "<h6>Jumlah panjang vektor doc = "+data.jumlah_panjang_vektor_doc+"</h6>"+
-                    "<h6>SQRT Jumlah panjang vektor q = "+data.sqrt_vektor_q+"</h6>"+
-                    "<h6>SQRT Jumlah panjang vektor doc = "+data.sqrt_vektor_doc+"</h6>"+
-                    "<h6>Hasil Cosine = "+data.hasil_cosine[0]+" || "+data.hasil_cosine[1]+" </h6>"+
-                    "<table id='tabel-hasil-unit-"+nomor_unit+"' class='display table-bordered' style='width:100%'>"+
-                    "<thead>"+
-                    "<tr>"+
-                    "<th>Index</th>"+
-                    "<th>Term</th>"+
-                    "<th>TF Q</th>"+
-                    "<th>TF DOC</th>"+
-                    "<th>DF</th>"+
-                    "<th>IDF</th>"+
-                    "<th>TF-IDF Q</th>"+
-                    "<th>TF-IDF DOC</th>"+
-                    "<th>Hasil perkalian skalar</th>"+
-                    "<th>Panjang vektor Q</th>"+
-                    "<th>Panjang vektor DOC</th>"+
-                    "</tr>"+
-                    "</thead>"+
-                    "<tbody>"
-                    for (i in Object.keys(data.term)) {
-                        elementToRender +=
-                        "<tr>"+
-                        "<td>"+i+"</td>"+
-                        "<td>"+Object.keys(data.term)[i]+"</td>"+
-                        "<td>"+data.tf.q[i]+"</td>"+
-                        "<td>"+data.tf.doc[i]+"</td>"+
-                        "<td>"+data.df[i]+"</td>"+
-                        "<td>"+data.idf_log[i]+"</td>"+
-                        "<td>"+data.tf_idf.q[i]+"</td>"+
-                        "<td>"+data.tf_idf.doc[i]+"</td>"+
-                        "<td>"+data.hasil_perkalian_skalar[i]+"</td>"+
-                        "<td>"+data.panjang_vektor.q[i]+"</td>"+
-                        "<td>"+data.panjang_vektor.doc[i]+"</td>"+
-                        "</tr>"
-                    }
-                    elementToRender +=
-                    "</tbody>"+
-                    "</table>"
-                    $('#hasil-unit-'+nomor_unit).html(elementToRender)
+                    $('#hasil-unit-'+nomor_unit).html(JSON.parse(data));
                     $('#tabel-hasil-unit-'+nomor_unit).DataTable({
                         bLengthChange: false,
                         searching: false,
